@@ -103,10 +103,11 @@ describe 'Books API' do
     book = create(:book)
 
     expect(Book.count).to eq(1) 
+
     delete "/api/v1/books/#{book.id}"
 
     expect(response).to be_successful
     expect(Book.count).to eq(0)
-    expect(Book.find(book.id)).to raise_error(ActiveRecord::RecordNotFound)
+    expect{Book.find(book.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end
