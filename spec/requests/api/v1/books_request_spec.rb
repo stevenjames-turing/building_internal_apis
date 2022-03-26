@@ -87,7 +87,7 @@ describe 'Books API' do
   it 'can update an existing book' do 
     id = create(:book).id
     previous_name = Book.last.title 
-    book_params = { title: "Charlottes's Web" }
+    book_params = { title: "Charlotte's Web" }
     headers = {"CONTENT_TYPE" => "application/json"}
 
     # We include this header to make sure that these params are passed as JSON rather than as plain text
