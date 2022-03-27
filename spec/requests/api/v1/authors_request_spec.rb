@@ -76,11 +76,32 @@ describe 'Authors API' do
     author = create(:author)
 
     expect(Author.count).to eq(1)
-
+    
     delete "/api/v1/authors/#{author.id}"
-
+    
     expect(response).to be_successful
     expect(Author.count).to eq(0)
     expect{Author.find(author.id)}.to raise_error(ActiveRecord::RecordNotFound)
+  end
+  
+  it 'destroys book records refrencing author when author is destroyed' do 
+    author1 = create(:author)
+    author2 = create(:author)
+    book1 = create(:book, author_id: author1.id)
+    book2 = create(:book, author_id: author1.id)
+    book3 = create(:book, author_id: author2.id)
+    
+    expect(Author.count).to eq(2)
+    expect(Book.count).to eq(3)
+    
+    delete "/api/v1/authors/#{author1.id}"
+    
+    expect(response).to be_successful
+
+    expect(Author.count).to eq(1)
+    expect(Book.count).to eq(1)
+    
+    expect{Author.find(author1.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect{Author.find(author2.id)}.to_not raise_error(ActiveRecord::RecordNotFound)
   end
 end
