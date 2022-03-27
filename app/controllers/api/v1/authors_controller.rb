@@ -1,5 +1,5 @@
 class Api::V1::AuthorsController < ApplicationController
-  before_action :find_author, only: [:show, :update]
+  before_action :find_author, only: [:show, :update, :destroy]
   
   def index 
     render json: Author.all 
@@ -15,6 +15,10 @@ class Api::V1::AuthorsController < ApplicationController
 
   def update 
     render json: @author.update(author_params)
+  end
+
+  def destroy 
+    render json: @author.delete
   end
 
   private 

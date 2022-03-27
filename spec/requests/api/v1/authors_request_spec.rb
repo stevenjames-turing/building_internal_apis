@@ -81,6 +81,6 @@ describe 'Authors API' do
 
     expect(response).to be_successful
     expect(Author.count).to eq(0)
-    expect(Author.find(author.id)).to raise_error(ActiveRecord::RecordNotFound)
+    expect{Author.find(author.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
 end
