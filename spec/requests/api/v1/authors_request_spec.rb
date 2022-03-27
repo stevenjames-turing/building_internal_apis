@@ -24,5 +24,22 @@ describe 'Authors API' do
     end 
   end
 
-  
+  it 'can get one author by its id' do 
+    id = create(:author).id 
+
+    get "/api/v1/authors/#{id}"
+
+    author = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response).to be_successful
+
+    expect(author).to have_key(:id)
+    expect(author[:id]).to eq(id)
+
+    expect(author).to have_key(:first_name)
+    expect(author[:first_name]).to be_a String 
+    
+    expect(author).to have_key(:last_name)
+    expect(author[:last_name]).to be_a String 
+  end
 end
