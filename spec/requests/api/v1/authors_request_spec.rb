@@ -71,4 +71,16 @@ describe 'Authors API' do
     expect(author.last_name).to_not eq(previous_name)
     expect(author.last_name).to eq("Banner")
   end
+
+  it 'can destroy an author' do 
+    author = create(:author)
+
+    expect(Author.count).to eq(1)
+
+    delete "/api/v1/authors/#{author.id}"
+
+    expect(response).to be_successful
+    expect(Author.count).to eq(0)
+    expect(Author.find(author.id)).to raise_error(ActiveRecord::RecordNotFound)
+  end
 end
