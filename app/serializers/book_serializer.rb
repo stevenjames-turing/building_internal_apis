@@ -4,7 +4,7 @@ class BookSerializer
       {
         id: book.id, 
         title: book.title, 
-        author: book.author, 
+        author_id: book.author_id, 
         genre: book.genre, 
         summary: book.summary, 
         popularity: book.popularity
