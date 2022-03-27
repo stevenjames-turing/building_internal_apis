@@ -18,7 +18,7 @@ class Api::V1::AuthorsController < ApplicationController
   end
 
   def destroy 
-    render json: @author.delete
+    render json: @author.destroy
   end
 
   private 

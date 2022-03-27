@@ -3,6 +3,6 @@ class Author < ApplicationRecord
   validates :first_name, :last_name, presence: true 
 
   # Model Relationships
-  has_many :books 
+  has_many :books, dependent: :destroy
   
 end
