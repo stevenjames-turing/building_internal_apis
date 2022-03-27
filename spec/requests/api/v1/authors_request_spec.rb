@@ -57,4 +57,18 @@ describe 'Authors API' do
     expect(created_author.first_name).to eq(author_params[:first_name])
     expect(created_author.last_name).to eq(author_params[:last_name])
   end
+
+  it 'can update an existing author' do 
+    id = create(:author).id 
+    previous_name = Author.last.last_name
+    author_params = { last_name: "Banner" }
+    headers = { "CONTENT_TYPE" => "application/json" }
+
+    patch "/api/v1/authors/#{id}", headers: headers, params: JSON.generate(author: author_params)
+    author = Author.find_by(id: id)
+
+    expect(response).to be_successful
+    expect(author.last_name).to_not eq(previous_name)
+    expect(author.last_name).to eq("Banner")
+  end
 end
