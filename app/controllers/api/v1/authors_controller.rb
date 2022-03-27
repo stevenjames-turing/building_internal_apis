@@ -1,5 +1,5 @@
 class Api::V1::AuthorsController < ApplicationController
-  before_action :find_author, only: [:show]
+  before_action :find_author, only: [:show, :update]
   
   def index 
     render json: Author.all 
@@ -11,6 +11,10 @@ class Api::V1::AuthorsController < ApplicationController
 
   def create 
     render json: Author.create!(author_params)
+  end
+
+  def update 
+    render json: @author.update(author_params)
   end
 
   private 
