@@ -42,4 +42,19 @@ describe 'Authors API' do
     expect(author).to have_key(:last_name)
     expect(author[:last_name]).to be_a String 
   end
+
+  it 'can create a new author' do 
+    author_params = ({
+                      first_name: 'Bruce',
+                      last_name: 'Banner'
+                    })
+    headers = {"CONTENT_TYPE" => "application/json"}
+
+    post "/api/v1/authors", headers: headers, params: JSON.generate(author: author_params)
+    created_author = Author.last 
+
+    expect(response).to be_successful
+    expect(created_author.first_name).to eq(author_params[:first_name])
+    expect(created_author.last_name).to eq(author_params[:last_name])
+  end
 end
