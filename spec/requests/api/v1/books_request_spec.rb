@@ -5,7 +5,7 @@ describe 'Books API' do
     author = create(:author)
     create_list(:book, 3, author_id: author.id)
 
-    get '/api/v1/books'
+    get "/api/v1/author/#{author.id}/books"
 
     expect(response).to be_successful
 
@@ -39,7 +39,7 @@ describe 'Books API' do
     author = create(:author)
     id = create(:book, author_id: author.id).id
     
-    get "/api/v1/books/#{id}"
+    get "/api/v1/author/#{author.id}/books/#{id}"
     
     book = JSON.parse(response.body, symbolize_names: true)
     
@@ -78,7 +78,7 @@ describe 'Books API' do
 
     # We include this header to make sure that these params are passed as JSON rather that as plain text
 
-    post "/api/v1/books", headers: headers, params: JSON.generate(book: book_params)
+    post "/api/v1/author/#{author.id}/books", headers: headers, params: JSON.generate(book: book_params)
     created_book = Book.last
 
     expect(response).to be_successful
@@ -97,7 +97,7 @@ describe 'Books API' do
     headers = {"CONTENT_TYPE" => "application/json"}
 
     # We include this header to make sure that these params are passed as JSON rather than as plain text
-    patch "/api/v1/books/#{id}", headers: headers, params: JSON.generate({book: book_params})
+    patch "/api/v1/author/#{author.id}/books/#{id}", headers: headers, params: JSON.generate({book: book_params})
     book = Book.find_by(id: id)
 
     expect(response).to be_successful
@@ -111,7 +111,7 @@ describe 'Books API' do
 
     expect(Book.count).to eq(1) 
 
-    delete "/api/v1/books/#{book.id}"
+    delete "/api/v1/author/#{author.id}/books/#{book.id}"
 
     expect(response).to be_successful
     expect(Book.count).to eq(0)

@@ -3,10 +3,14 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do 
-      resources :books, only: [:index, :show, :create, :update, :destroy]
+      resources :author do 
+        resources :books, only: [:index, :show, :create, :update, :destroy]
+      end
     end
     namespace :v2 do 
-      resources :books, only: [:index]
+      resources :author do 
+        resources :books, only: [:index]
+      end
     end
   end
   

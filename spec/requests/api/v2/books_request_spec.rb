@@ -5,7 +5,7 @@ describe 'Books API' do
     author = create(:author)
     create_list(:book, 3, author_id: author.id)
 
-    get '/api/v2/books'
+    get "/api/v2/author/#{author.id}/books"
 
     expect(response).to be_successful
 
